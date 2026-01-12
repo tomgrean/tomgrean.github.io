@@ -788,7 +788,7 @@
           if (message === 'bye') {
             // 设备下线消息
             setDeviceOnline(false);
-          } else {
+          } else if (!topic.endsWith('ctrl')) {
             setDeviceOnline(true);
             if (message.startsWith('p')) {
               // 处理压力消息前，设置设备为在线状态
