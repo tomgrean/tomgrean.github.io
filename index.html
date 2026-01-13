@@ -539,18 +539,11 @@
         if (value === -3) return '#f0f0f0'; // 无压力 (pl)
         
         // 正常压力值：0-4096，按压力大小显示不同颜色深度
-        const normalized = Math.min(value / 4096, 1);
+        const normalized = Math.min(Math.cbrt(x+20) / 16, 1);
         
-        if (normalized < 0.3) {
-          // 低压力：浅蓝色
-          return `hsl(210, 80%, 75%)`;
-        } else if (normalized < 0.7) {
-          // 中压力：蓝色
-          return `hsl(210, 80%, 55%)`;
-        } else {
-          // 高压力：深蓝色
-          return `hsl(210, 80%, 35%)`;
-        }
+        const saturation = Math.round(100*(normalized));
+        const lightness = Math.round(100*(1-normalized));
+        return `hsl(210, ${saturation}%, ${lightness}%)`;
       }
       
       // 更新压力块显示
